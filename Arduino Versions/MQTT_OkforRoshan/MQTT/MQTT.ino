@@ -78,7 +78,7 @@ void callback(char* topic, byte *payload, unsigned int length) {
 }
 
 void scan_ble(){
-  String dump = "{";
+  String dump = "{\"id\":9,";
   BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
   int count = foundDevices.getCount();
   Serial.print("Devices found: ");

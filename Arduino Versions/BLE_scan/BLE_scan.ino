@@ -19,7 +19,7 @@ const char outgoingTopic[30] = "ENTC";
 const char incomingTopic[30] = "ENTCIn";
 bool sent = LOW;
 char msg[1000];
-int scanTime = 3; //In seconds
+int scanTime = 2; //In seconds
 
 BLEScan* pBLEScan;
 WiFiClient espClient;
@@ -73,7 +73,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println();
 }
 void scan_ble(){
-  String dump = "{";
+  String dump = "{\"id\":9,";
   BLEScanResults foundDevices = pBLEScan->start(scanTime, false);
   int count = foundDevices.getCount();
   Serial.print("Devices found: ");
@@ -89,7 +89,6 @@ void scan_ble(){
     dump+="\"";
     dump+=":";
     dump+=d.getRSSI();
-    delay(10);
   }
   dump+="}";
   dump.toCharArray(msg,500000);
@@ -132,5 +131,5 @@ void loop() {
   }
   client.loop();
   scan_ble();
-  delay(2000);
+  delay(1000);
 }
